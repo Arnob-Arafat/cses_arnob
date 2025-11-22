@@ -9,11 +9,10 @@ int main(void)
 
     int n;
     cin >> n;
-    n--;
 
-    vector<int> a;
+    vector<long long> a;
 
-    while(n--)
+    for(int i = 0; i < n-1; i++)
     {
         int x;
         cin >> x;
@@ -21,16 +20,18 @@ int main(void)
     }
 
     sort(a.begin(), a.end());
-    int i = a[0];
 
-    for(int x : a)
+    long long i = 1;
+
+    while (i < n)
     {
-        if (x != i)
+        if (i != a[i-1])
         {
             cout << i << '\n';
             return 0;
         }
         i++;
     }
+    cout << n << "\n";
     return 0;
 }
