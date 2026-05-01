@@ -1,0 +1,22 @@
+# Ignore compiled executables (files with no extension)
+# This matches files like 'twoknights' in your image
+*
+!*/
+!*.cpp
+!*.h
+!*.hpp
+!.gitignore
+!README.md
+
+# Ignore specific OS/IDE junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Common executable extensions
+*.exe
+*.out
+*.app
+*.o
+*.obj
