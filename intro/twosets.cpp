@@ -3,57 +3,51 @@ using namespace std;
 
 int main(void)
 {
-    int n;
+    long long n;
     cin >> n;
     
-    long long sum = (long long)n*(n+1)/2;
-
-    if (sum%2 == 1)
+    long long sum = n*(n+1)/2;
+    if (sum%2 == 0) cout << "YES\n";
+    else
     {
-        cout << "NO" << "\n";
+        cout << "NO\n";
         return 0;
     }
-    else cout << "YES" << "\n";
 
-    int arr[n] = {0};
-    
-    int r = n;
-    int l = 1;
+    long long last = n;
 
-    long long sum_parts = sum/2;
+    bool f[n] = {0};
 
-    int count = 0;
+    long long temp = 0;
 
-    while(sum_parts != 0)
+    vector<long long> s1;
+
+    while(temp <= sum/2 && last > 0)
     {
-        if (sum_parts >= n) 
+        if (temp + last <= sum/2)
         {
-            arr[r-1]++;
-            sum_parts -= r;
-            r--;
-            count++;
-            
+            f[last-1] = true;
+            temp += last;
+            s1.push_back(last);
         }
-        else
-        {
-            arr[l-1]++;
-            sum_parts -= l;
-            l++;
-            count++;
-        }
+        
+        last--;
     }
 
-    cout << count << endl;
-
-    for (int i = 0; i < n; i++) if (arr[i] != 0) cout << i+1 << " ";
-
-    cout << endl;
-
-    cout << n-count << endl;
-
-    for (int i = 0; i < n; i++)
+    cout << (long long)s1.size() << "\n";
+    for (long long i = 0; i < (long long)s1.size(); i++)
     {
-        if(arr[i] == 0) cout << i+1 << " "; 
+        cout << s1[i] << " ";
     }
-    cout << endl;
+
+    cout << "\n" << n-(long long)s1.size() << "\n";
+
+    for (long long i = 0; i < n; i++)
+    {
+        if(!f[i]) cout << i+1 << " ";
+    }
+
+    cout << "\n";
+
+    return 0;
 }
