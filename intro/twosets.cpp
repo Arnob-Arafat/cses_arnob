@@ -22,7 +22,7 @@ int main(void)
 
     vector<long long> s1;
 
-    while(temp <= sum/2 && last > 0)
+    while(temp < sum/2)
     {
         if (temp + last <= sum/2)
         {
