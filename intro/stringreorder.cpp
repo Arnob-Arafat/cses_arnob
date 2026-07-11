@@ -16,28 +16,79 @@ int main(void)
     string str;
     cin >> str;
 
-    int alpha[26] = {0};
-    for (int i = 0; i < (int)str.size(); i++) alpha[str[i] - 'A']++;
-    
     string newstr;
-    int i = 0;
-    int count = 0;
-    int lastindex = -1;
 
-    while(count < str.size())
+    int alpha[26] = {0};
+
+    for (char s : str)
     {
-        if (alpha[i] != 0 && i != lastindex) 
-        {
-            newstr.push_back('A'+i);
-            alpha[i]--;
-            lastindex = i;
-            i = 0;
-            count++;
-        }
-        
-        else i++;
+        alpha[s - 'A']++;
     }
-    if (!possible(newstr)) cout << -1;
 
-    else cout << newstr << endl;
+    if ((int)str.size() % 2 == 0)
+    {
+        string substr;
+        for (int i = 0; i < 26; i++)
+        {
+            if (alpha[i]%2 == 1)
+            {
+                cout << "NO SOLUTION\n";
+                return 0;
+            }
+
+            for (int j = 0; j < alpha[i]/2; j++)
+            {
+                substr.push_back(i+'A');
+            }
+        }
+
+        newstr = substr;
+
+        reverse(substr.begin(), substr.end());
+
+        newstr = newstr + substr;
+
+        cout << newstr << "\n";
+    }
+
+    else
+    {
+        string substr;
+        int middle_count = 0;
+        char midchar;
+
+        for (int i = 0; i < 26; i++)
+        {
+            if (alpha[i]%2 == 1)
+            {
+                middle_count++;
+                midchar = i+'A';
+                continue;
+            }
+
+            for (int j = 0; j < alpha[i]/2; j++)
+            {
+                substr.push_back(i+'A');
+            }
+        }
+
+        if (middle_count > 1)
+        {
+            cout << "NO SOLUTION\n";
+            return 0;
+        }
+
+        newstr = substr;
+
+        for (int i = 0; i < alpha[midchar - 'A']; i++)
+        {
+            newstr = newstr + midchar;
+        }
+
+        reverse(substr.begin(), substr.end());
+
+        newstr = newstr + substr;
+
+        cout << newstr << endl;
+    }
 }
